@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:lottie/lottie.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -21,7 +19,8 @@ class _SignInScreenState extends State<SignInScreen> {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       if (googleUser == null) return;
 
-      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      final GoogleSignInAuthentication googleAuth =
+      await googleUser.authentication;
 
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
@@ -42,56 +41,59 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue[700],
+      backgroundColor: Colors.white, // ✅ White background
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Animate(
-                effects: [FadeEffect(duration: 600.ms), MoveEffect(begin: const Offset(0, -30), duration: 600.ms)],
-                child: Lottie.asset('assets/lightbulb.json', height: 200),
+        child: Column(
+          children: [
+           // const Spacer(),
+            Image.asset(
+              'assets/cv_illustration.png',
+              height: 400,
+            ),
+            const SizedBox(height: 34),
+            const Text(
+              'Voice CV Generator',
+              style: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+                color: Colors.black87,
               ),
-              const SizedBox(height: 20),
-              Animate(
-                effects: [FadeEffect(duration: 500.ms)],
-                child: const Text(
-                  'CVGenerator',
-                  style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+            ),
+            const SizedBox(height: 8),
+            const Text(
+              'Generate a job-ready CV in seconds',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.black54,
+              ),
+            ),
+            const SizedBox(height: 40),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 22),
+              child: ElevatedButton.icon(
+                onPressed: _handleGoogleSignIn,
+                icon: Image.asset(
+                  'assets/google_logo.png',
+                  height: 54,
+                  width: 54,
+                ),
+                label: const Text(
+                  'Continue with Google',
+                  style: TextStyle(fontSize: 23),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF0078D7),
+                  foregroundColor: Colors.white,
+                  minimumSize: const Size(double.infinity, 92),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(48),
                   ),
+                  elevation: 4,
                 ),
               ),
-              const SizedBox(height: 8),
-              Animate(
-                effects: [FadeEffect(duration: 700.ms)],
-                child: const Text(
-                  'Generate a professional CV in seconds!',
-                  style: TextStyle(fontSize: 16, color: Colors.white70),
-                ),
-              ),
-              const Spacer(),
-              Animate(
-                effects: [FadeEffect(duration: 900.ms)],
-                child: ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    foregroundColor: Colors.black87,
-                    minimumSize: const Size(double.infinity, 52),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                  ),
-                  icon: Image.asset('assets/google_logo.png', height: 24, width: 24),
-                  label: const Text('Continue with Google'),
-                  onPressed: _handleGoogleSignIn,
-                ),
-              ),
-            ],
-          ),
+            ),
+            const Spacer(),
+          ],
         ),
       ),
     );
