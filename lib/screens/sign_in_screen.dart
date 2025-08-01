@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -19,14 +20,13 @@ class _SignInScreenState extends State<SignInScreen>
   @override
   void initState() {
     super.initState();
-
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1000),
+      duration: const Duration(milliseconds: 1600),
     )..repeat(reverse: true);
 
-    _scaleAnimation = Tween<double>(begin: 1.0, end: 1.05).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    _scaleAnimation = Tween<double>(begin: 0.98, end: 1.02).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOutCubic),
     );
   }
 
@@ -40,7 +40,7 @@ class _SignInScreenState extends State<SignInScreen>
     setState(() {
       _isSigningIn = true;
     });
-    _controller.stop(); // 🔴 Stop animation on button press
+    _controller.stop();
 
     try {
       await _googleSignIn.signOut(); // Force account picker
@@ -49,7 +49,7 @@ class _SignInScreenState extends State<SignInScreen>
       if (googleUser == null) {
         setState(() {
           _isSigningIn = false;
-          _controller.repeat(reverse: true); // 🔁 Restart animation if canceled
+          _controller.repeat(reverse: true);
         });
         return;
       }
@@ -71,7 +71,7 @@ class _SignInScreenState extends State<SignInScreen>
       debugPrint('Google Sign-In Error: $e');
       setState(() {
         _isSigningIn = false;
-        _controller.repeat(reverse: true); // 🔁 Restart animation on error
+        _controller.repeat(reverse: true);
       });
 
       ScaffoldMessenger.of(context).showSnackBar(
@@ -82,62 +82,71 @@ class _SignInScreenState extends State<SignInScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Column(
-          children: [
-            Image.asset(
-              'assets/cv_illustration.png',
-              height: 400,
-            ),
-            const SizedBox(height: 34),
-            const Text(
-              'Voice CV Generator',
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-                color: Colors.black87,
+    return Theme(
+      data: ThemeData(
+        textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
+      ),
+      child: Scaffold(
+        backgroundColor: const Color(0xFFF3F5F9),
+        body: SafeArea(
+          child: Column(
+            children: [
+              Image.asset(
+                'assets/cv_illustration.png',
+                height: 400,
               ),
-            ),
-            const SizedBox(height: 8),
-            const Text(
-              'Generate a job-ready CV in seconds',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.black54,
+              const SizedBox(height: 34),
+              Text(
+                'Voice CV Generator',
+                style: GoogleFonts.poppins(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
+                ),
               ),
-            ),
-            const SizedBox(height: 40),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: ScaleTransition(
-                scale: _scaleAnimation,
-                child: ElevatedButton.icon(
-                  onPressed: _isSigningIn ? null : _handleGoogleSignIn,
-                  icon: Image.asset(
-                    'assets/google_logo.png',
-                    height: 60,
-                    width: 60,
-                  ),
-                  label: const Text(
-                    'Continue with Google',
-                    style: TextStyle(fontSize: 23),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF0078D7),
-                    foregroundColor: Colors.white,
-                    minimumSize: const Size(double.infinity, 92),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(48),
+              const SizedBox(height: 8),
+              Text(
+                'Generate a job-ready CV in seconds',
+                style: GoogleFonts.poppins(
+                  fontSize: 16,
+                  color: Colors.black54,
+                ),
+              ),
+              const SizedBox(height: 50),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
+                child: ScaleTransition(
+                  scale: _scaleAnimation,
+                  child: ElevatedButton.icon(
+                    onPressed: _isSigningIn ? null : _handleGoogleSignIn,
+                    icon: Image.asset(
+                      'assets/google_logo.png',
+                      height: 60,
+                      width: 60,
                     ),
-                    elevation: 4,
+                    label: Text(
+                      'Continue with Google',
+                      style: GoogleFonts.poppins(
+                        fontSize: 19,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF0078D7),
+                      foregroundColor: Colors.white,
+                      minimumSize: const Size(double.infinity, 82),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(28),
+                      ),
+                      elevation: 4,
+                    ),
                   ),
                 ),
               ),
-            ),
-            const Spacer(),
-          ],
+              const Spacer(),
+            ],
+          ),
         ),
       ),
     );
