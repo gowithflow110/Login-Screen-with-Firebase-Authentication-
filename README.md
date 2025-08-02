@@ -1,18 +1,35 @@
-✨ Login Screen with Firebase Authentication (Flutter)
+Here's your updated and polished `README.md`, now correctly including the `dashboard_screen.dart` in the `screens/` directory:
+
+---
+
+## ✨ Login Screen with Firebase Authentication (Flutter)
+
 A clean and modern Flutter app featuring animated Google Sign-In and seamless Firebase authentication flow.
 
-🧭 Features
-🔐 Secure Google Sign-In integration with Firebase Authentication
-🧠 Animated "Continue with Google" button using scaling effect
-🎨 Unified design with Google Fonts and rounded UI elements
-🚀 Smooth navigation to Dashboard screen on successful login
-✅ Proper error handling and loading state management
-🖼️ Preview
-(Replace with actual screenshots)
+---
 
-Sign-In Screen with animated button
-Dashboard screen post-login
-📁 Project Structure
+### 🧭 Features
+
+* 🔐 Secure Google Sign-In integration with Firebase Authentication
+* 🧠 Animated "Continue with Google" button using scaling effect
+* 🎨 Unified design with Google Fonts and rounded UI elements
+* 🚀 Smooth navigation to Dashboard screen on successful login
+* ✅ Proper error handling and loading state management
+
+---
+
+### 🖼️ Preview
+
+*(Replace with actual screenshots)*
+
+* Sign-In Screen with animated button
+* Dashboard screen post-login
+
+---
+
+### 📁 Project Structure
+
+```
 lib/
 ├── main.dart
 ├── screens/
@@ -21,67 +38,119 @@ lib/
 assets/
 ├── google_logo.png              # Google logo (circular "G")
 ├── cv_illustration.png          # App illustration image
-🛠️ Getting Started
-1. Clone the Project
-   git clone https://github.com/gowithflow110/Login-Screen-with-Firebase-Authentication-.git
-   cd Login-Screen-with-Firebase-Authentication-
-2. Install Dependencies
-   flutter pub get
-3. Firebase Setup
-   Go to the Firebase Console
-   Create a new Firebase project
-   Enable Google Sign-In under Authentication → Sign-in methods (Google) ([github.com][1], [firebase.google.com][2], [github.com][3], [firebaseopensource.com][4])
-   Add an Android or iOS app to the project
-   Download google-services.json and place it inside android/app/
-   Initialize Firebase.initializeApp() in your main.dart
-4. Configure Assets
-   Ensure your pubspec.yaml includes:
+```
 
+---
+
+### 🛠️ Getting Started
+
+#### 1. Clone the Project
+
+```bash
+git clone https://github.com/gowithflow110/Login-Screen-with-Firebase-Authentication-.git
+cd Login-Screen-with-Firebase-Authentication-
+```
+
+#### 2. Install Dependencies
+
+```bash
+flutter pub get
+```
+
+#### 3. Firebase Setup
+
+1. Go to the [Firebase Console](https://console.firebase.google.com/)
+2. Create a new Firebase project
+3. Enable **Google Sign-In** under Authentication → Sign-in methods (Google) ([github.com][1], [firebase.google.com][2], [github.com][3], [firebaseopensource.com][4])
+4. Add an Android or iOS app to the project
+5. Download `google-services.json` and place it inside `android/app/`
+6. Initialize `Firebase.initializeApp()` in your `main.dart`
+
+#### 4. Configure Assets
+
+Ensure your `pubspec.yaml` includes:
+
+```yaml
 flutter:
-assets:
-- assets/google_logo.png
-- assets/cv_illustration.png
-📦 Dependencies
+  assets:
+    - assets/google_logo.png
+    - assets/cv_illustration.png
+```
+
+---
+
+### 📦 Dependencies
+
+```yaml
 dependencies:
-flutter:
-sdk: flutter
-firebase_core: ^latest
-firebase_auth: ^latest
-google_sign_in: ^latest
-google_fonts: ^latest
-(Replace ^latest with the actual versions from pub.dev)
+  flutter:
+    sdk: flutter
+  firebase_core: ^latest
+  firebase_auth: ^latest
+  google_sign_in: ^latest
+  google_fonts: ^latest
+```
 
-🔑 Authentication Flow
-User taps the animated "Continue with Google" button
-Google account picker launches
-Firebase authenticates the selected account
-If successful → Navigate to DashboardScreen
-If cancelled or failed → Animation resumes and error SnackBar is shown
-🖌️ Custom Google Button UI
-Button height: 82px
-Background color: #4285F4
-Rounded shape with border-radius: 30px
-Floating Google “G” logo positioned on top
-Text padded slightly downward for accurate alignment
-🚀 Future Enhancements
-✅ Voice-based CV generation in dashboard
-✅ User session management using Shared Preferences
-✅ Dark mode theme support
-✅ Expand Dashboard with user profile and CV history
-🧪 Error Handling
-When an error occurs during sign-in:
+*(Replace `^latest` with the actual versions from [pub.dev](https://pub.dev))*
 
-Animation restarts
-A SnackBar appears with a failure message
-Errors logged in debug console
-📄 Licensing
-This project is licensed under the MIT License — see the LICENSE file for details.
+---
 
-💡 Contributing
-Contributions are welcome! Feel free to:
+### 🔑 Authentication Flow
 
-Open issues
-Submit pull requests
-Suggest new features
-🙌 Credits
-Developed with ❤ by Muhammad Bilal (gowithflow110)
+1. User taps the animated "Continue with Google" button
+2. Google account picker launches
+3. Firebase authenticates the selected account
+4. If successful → Navigate to `DashboardScreen`
+5. If cancelled or failed → Animation resumes and error `SnackBar` is shown
+
+---
+
+### 🖌️ Custom Google Button UI
+
+* Button height: **82px**
+* Background color: **#4285F4**
+* Rounded shape with **border-radius: 30px**
+* Floating **Google “G” logo** positioned on top
+* Text padded slightly downward for accurate alignment
+
+---
+
+### 🚀 Future Enhancements
+
+* ✅ Voice-based CV generation in dashboard
+* ✅ User session management using Shared Preferences
+* ✅ Dark mode theme support
+* ✅ Expand Dashboard with user profile and CV history
+
+---
+
+### 🧪 Error Handling
+
+* When an error occurs during sign-in:
+
+   * Animation restarts
+   * A `SnackBar` appears with a failure message
+   * Errors logged in debug console
+
+---
+
+### 📄 Licensing
+
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
+
+---
+
+### 💡 Contributing
+
+Contributions are welcome!
+Feel free to:
+
+* Open issues
+* Submit pull requests
+* Suggest new features
+
+---
+
+### 🙌 Credits
+
+Developed with ❤ by **Muhammad Bilal** ([gowithflow110](https://github.com/gowithflow110))
