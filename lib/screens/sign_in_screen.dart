@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -62,10 +63,34 @@ class _SignInScreenState extends State<SignInScreen>
         idToken: googleAuth.idToken,
       );
 
+      final userCredential =
       await FirebaseAuth.instance.signInWithCredential(credential);
 
-      if (context.mounted) {
-        Navigator.pushReplacementNamed(context, '/cv_form');
+      final user = userCredential.user;
+      if (user != null) {
+        final userData = {
+          'uid': user.uid,
+          'displayName': user.displayName ?? '',
+          'email': user.email ?? '',
+          'photoURL': user.photoURL ?? '',
+          'lastLogin': FieldValue.serverTimestamp(),
+        };
+
+        final usersRef = FirebaseFirestore.instance.collection('users');
+
+        try {
+          await usersRef.doc(user.uid).set(userData, SetOptions(merge: true));
+          debugPrint('✅ User data written to Firestore');
+        } catch (e) {
+          debugPrint('❌ Firestore write failed: $e');
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Failed to save user info.')),
+          );
+        }
+
+        if (context.mounted) {
+          Navigator.pushReplacementNamed(context, '/cv_form');
+        }
       }
     } catch (e) {
       debugPrint('Google Sign-In Error: $e');

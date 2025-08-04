@@ -1,156 +1,87 @@
-Here's your updated and polished `README.md`, now correctly including the `dashboard_screen.dart` in the `screens/` directory:
+
+# 🚀 CVGenerator Flutter App
+
+A sleek Flutter app to create CVs with **Google Firebase Authentication** seamlessly integrated.
 
 ---
 
-## ✨ Login Screen with Firebase Authentication (Flutter)
+## ✨ Features
 
-A clean and modern Flutter app featuring animated Google Sign-In and seamless Firebase authentication flow.
-
----
-
-### 🧭 Features
-
-* 🔐 Secure Google Sign-In integration with Firebase Authentication
-* 🧠 Animated "Continue with Google" button using scaling effect
-* 🎨 Unified design with Google Fonts and rounded UI elements
-* 🚀 Smooth navigation to Dashboard screen on successful login
-* ✅ Proper error handling and loading state management
+* 🔐 **Firebase Authentication** with Google Sign-In
+* 🔄 **Reactive AuthGate** widget managing navigation based on auth state
+* ⏳ **Splash Screen** while loading auth status
+* 📄 **Dashboard (CVFormScreen)** accessible only when signed in
+* 🔓 **Sign Out** button on Dashboard for easy logout
 
 ---
 
-### 🖼️ Preview
+## 🗂️ Project Structure
 
-*(Replace with actual screenshots)*
-
-* Sign-In Screen with animated button
-* Dashboard screen post-login
-
----
-
-### 📁 Project Structure
-
-```
-lib/
-├── main.dart
-├── screens/
-│   ├── sign_in_screen.dart     # Login screen with animated Google button
-│   └── dashboard_screen.dart   # Post-login dashboard placeholder
-assets/
-├── google_logo.png              # Google logo (circular "G")
-├── cv_illustration.png          # App illustration image
-```
+* `main.dart` — 🚀 Initializes Firebase and launches the app
+* `AuthGate` — 🚦 Listens to auth state changes and routes to correct screen
+* `SplashLoginScreen` — ⏳ Shows loading while Firebase initializes/auth state loads
+* `SignInScreen` — 🔑 Login screen for unauthenticated users
+* `CVFormScreen` — 📋 Main dashboard; includes a logout button
 
 ---
 
-### 🛠️ Getting Started
+## ⚙️ How it Works
 
-#### 1. Clone the Project
+1. **Firebase Initialization**
+   App initializes Firebase on startup (`main()`).
 
-```bash
-git clone https://github.com/gowithflow110/Login-Screen-with-Firebase-Authentication-.git
-cd Login-Screen-with-Firebase-Authentication-
-```
+2. **AuthGate Widget**
 
-#### 2. Install Dependencies
+  * Uses `StreamBuilder` listening to `authStateChanges()`
+  * Shows:
 
-```bash
-flutter pub get
-```
+    * ⏳ SplashLoginScreen while waiting
+    * 🔐 SignInScreen if no user logged in
+    * 🎉 CVFormScreen when authenticated
 
-#### 3. Firebase Setup
+3. **User Status Debugging**
 
-1. Go to the [Firebase Console](https://console.firebase.google.com/)
-2. Create a new Firebase project
-3. Enable **Google Sign-In** under Authentication → Sign-in methods (Google) ([github.com][1], [firebase.google.com][2], [github.com][3], [firebaseopensource.com][4])
-4. Add an Android or iOS app to the project
-5. Download `google-services.json` and place it inside `android/app/`
-6. Initialize `Firebase.initializeApp()` in your `main.dart`
+  * Logs user email or "No user" status in console on each build
 
-#### 4. Configure Assets
+4. **Sign Out**
 
-Ensure your `pubspec.yaml` includes:
-
-```yaml
-flutter:
-  assets:
-    - assets/google_logo.png
-    - assets/cv_illustration.png
-```
+  * Logout button in `CVFormScreen` AppBar
+  * Calls `FirebaseAuth.instance.signOut()`
+  * `AuthGate` automatically navigates to SignInScreen
 
 ---
 
-### 📦 Dependencies
+## 🧪 How to Test
 
-```yaml
-dependencies:
-  flutter:
-    sdk: flutter
-  firebase_core: ^latest
-  firebase_auth: ^latest
-  google_sign_in: ^latest
-  google_fonts: ^latest
+* To simulate logged-out state, call:
+
+  ```dart
+  await FirebaseAuth.instance.signOut();
+  ```
+
+  (Can be temporarily added in `main()`.)
+
+* Use the logout button on dashboard to sign out.
+
+---
+
+## 📦 Dependencies
+
+* `firebase_core`
+* `firebase_auth`
+* `google_fonts`
+* Flutter SDK (Material3 enabled)
+
+---
+
+## 🔄 UI Flow
+
+```plaintext
+⏳ SplashLoginScreen
+      ↓
+🔐 SignInScreen (if NOT logged in)
+      ↓
+🎉 CVFormScreen (dashboard, with sign out button)
 ```
 
-*(Replace `^latest` with the actual versions from [pub.dev](https://pub.dev))*
 
----
-
-### 🔑 Authentication Flow
-
-1. User taps the animated "Continue with Google" button
-2. Google account picker launches
-3. Firebase authenticates the selected account
-4. If successful → Navigate to `DashboardScreen`
-5. If cancelled or failed → Animation resumes and error `SnackBar` is shown
-
----
-
-### 🖌️ Custom Google Button UI
-
-* Button height: **82px**
-* Background color: **#4285F4**
-* Rounded shape with **border-radius: 30px**
-* Floating **Google “G” logo** positioned on top
-* Text padded slightly downward for accurate alignment
-
----
-
-### 🚀 Future Enhancements
-
-* ✅ Voice-based CV generation in dashboard
-* ✅ User session management using Shared Preferences
-* ✅ Dark mode theme support
-* ✅ Expand Dashboard with user profile and CV history
-
----
-
-### 🧪 Error Handling
-
-* When an error occurs during sign-in:
-
-   * Animation restarts
-   * A `SnackBar` appears with a failure message
-   * Errors logged in debug console
-
----
-
-### 📄 Licensing
-
-This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
-
----
-
-### 💡 Contributing
-
-Contributions are welcome!
-Feel free to:
-
-* Open issues
-* Submit pull requests
-* Suggest new features
-
----
-
-### 🙌 Credits
-
-Developed with ❤ by **Muhammad Bilal** ([gowithflow110](https://github.com/gowithflow110))
