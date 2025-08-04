@@ -65,7 +65,7 @@ class _SignInScreenState extends State<SignInScreen>
       await FirebaseAuth.instance.signInWithCredential(credential);
 
       if (context.mounted) {
-        Navigator.pushReplacementNamed(context, '/dashboard');
+        Navigator.pushReplacementNamed(context, '/cv_form');
       }
     } catch (e) {
       debugPrint('Google Sign-In Error: $e');

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class DashboardScreen extends StatelessWidget {
-  const DashboardScreen({super.key});
+class CVFormScreen extends StatelessWidget {
+  const CVFormScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Dashboard'),
+        title: const Text('CVFormScreen'),
         backgroundColor: Colors.blue,
       ),
       body: const Center(
